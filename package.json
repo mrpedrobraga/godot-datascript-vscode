@@ -1,0 +1,25 @@
+{
+  "name": "ds-json",
+  "displayName": "ds-json",
+  "description": "Language support for JSON-based DataScript.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.83.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "ds-json",
+      "aliases": ["Datascript (JSON)", "ds-json"],
+      "extensions": [".ds.json"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "ds-json",
+      "scopeName": "source.ds-json",
+      "path": "./syntaxes/ds-json.tmLanguage.json"
+    }]
+  }
+}
