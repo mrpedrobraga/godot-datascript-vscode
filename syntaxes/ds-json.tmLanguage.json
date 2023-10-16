@@ -45,7 +45,7 @@
           "include": "#value"
         }
       ],
-      "end": ","
+      "end": ",|(?=\\})"
     },
     "array": {
       "begin": "\\[",
@@ -53,25 +53,31 @@
       "name": "meta.structure.array.json",
       "patterns": [
         {
+          "include": "#function-call"
+        },
+        {
           "include": "#value"
         }
       ]
     },
-    "instruction": {
-      "begin": "\\[(?:(\"(\\(\\)|if|unless|elif|elun|else|for|while|until|async|meanwhile|not|or|and|add|sub|wait)\")|(\".+?\"))",
+    "function-call": {
+      "begin": "(\"--.*?--\")|(\"(\\(\\)|if|unless|elif|elun|else|for|while|until|async|meanwhile|not|or|and|add|sub|wait)\")|(\".+?\")",
       "beginCaptures": {
         "1": {
-          "name": "keyword.control"
+          "name": "comment.line"
         },
         "2": {
           "name": "keyword.control"
         },
         "3": {
+          "name": "keyword.control"
+        },
+        "4": {
           "name": "entity.name.function"
         }
       },
       "patterns": [{ "include": "#value" }],
-      "end": "]"
+      "end": "(?=\\])"
     },
     "boolean": {
       "name": "constant.language.boolean.json",
