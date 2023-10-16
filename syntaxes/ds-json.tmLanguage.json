@@ -38,7 +38,7 @@
     "kv-entry": {
       "begin": "\"(\\w+)\"\\s*(:)",
       "beginCaptures": {
-        "1": { "name": "meta.structure.dictionary.key.python" }
+        "1": { "name": "variable.name" }
       },
       "patterns": [
         {
@@ -53,15 +53,12 @@
       "name": "meta.structure.array.json",
       "patterns": [
         {
-          "include": "#function-name"
-        },
-        {
           "include": "#value"
         }
       ]
     },
-    "function-name": {
-      "begin": "(\"(\\(\\)|if|unless|elif|elun|else|for|while|until|async|meanwhile|not|or|and|add|sub|wait)\")|(\".+?\")",
+    "instruction": {
+      "begin": "\\[(?:(\"(\\(\\)|if|unless|elif|elun|else|for|while|until|async|meanwhile|not|or|and|add|sub|wait)\")|(\".+?\"))",
       "beginCaptures": {
         "1": {
           "name": "keyword.control"
@@ -74,7 +71,7 @@
         }
       },
       "patterns": [{ "include": "#value" }],
-      "end": ""
+      "end": "]"
     },
     "boolean": {
       "name": "constant.language.boolean.json",
@@ -94,6 +91,9 @@
         },
         {
           "include": "#object"
+        },
+        {
+          "include": "#instruction"
         },
         {
           "include": "#array"

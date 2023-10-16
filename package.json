@@ -2,7 +2,7 @@
   "name": "ds-json",
   "displayName": "ds-json",
   "description": "Language support for JSON-based DataScript.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/mrpedrobraga/godot-datascript-3.x.git"
