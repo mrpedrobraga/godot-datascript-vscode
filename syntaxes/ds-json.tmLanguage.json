@@ -1,32 +1,110 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "Datascript (JSON)",
-	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
-		}
-	],
-	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.ds-json",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
-		},
-		"strings": {
-			"name": "string.quoted.double.ds-json",
-			"begin": "\"",
-			"end": "\"",
-			"patterns": [
-				{
-					"name": "constant.character.escape.ds-json",
-					"match": "\\\\."
-				}
-			]
-		}
-	},
-	"scopeName": "source.ds-json"
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Datascript (JSON)",
+  "scopeName": "source.ds-json",
+  "patterns": [
+    {
+      "include": "#value"
+    }
+  ],
+  "repository": {
+    "string": {
+      "patterns": [
+        {
+          "name": "string.quoted.double",
+          "match": "\"(.*?)\"",
+          "captures": {
+            "1": {
+              "name": "string.quoted.double"
+            }
+          }
+        }
+      ]
+    },
+    "number": {
+      "name": "constant.numeric.json",
+      "match": "-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?"
+    },
+    "object": {
+      "begin": "{",
+      "end": "}",
+      "name": "meta.structure.dictionary.json",
+      "patterns": [
+        {
+          "include": "#kv-entry"
+        }
+      ]
+    },
+    "kv-entry": {
+      "begin": "\"(\\w+)\"\\s*(:)",
+      "beginCaptures": {
+        "1": { "name": "meta.structure.dictionary.key.python" }
+      },
+      "patterns": [
+        {
+          "include": "#value"
+        }
+      ],
+      "end": ","
+    },
+    "array": {
+      "begin": "\\[",
+      "end": "\\]",
+      "name": "meta.structure.array.json",
+      "patterns": [
+        {
+          "include": "#function-name"
+        },
+        {
+          "include": "#value"
+        }
+      ]
+    },
+    "function-name": {
+      "begin": "(\"(\\(\\)|if|unless|elif|elun|else|for|while|until|async|meanwhile|not|or|and|add|sub|wait)\")|(\".+?\")",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.control"
+        },
+        "2": {
+          "name": "keyword.control"
+        },
+        "3": {
+          "name": "entity.name.function"
+        }
+      },
+      "patterns": [{ "include": "#value" }],
+      "end": ""
+    },
+    "boolean": {
+      "name": "constant.language.boolean.json",
+      "match": "\\b(true|false)\\b"
+    },
+    "null": {
+      "name": "constant.language.null.json",
+      "match": "\\bnull\\b"
+    },
+    "value": {
+      "patterns": [
+        {
+          "include": "#string"
+        },
+        {
+          "include": "#number"
+        },
+        {
+          "include": "#object"
+        },
+        {
+          "include": "#array"
+        },
+        {
+          "include": "#boolean"
+        },
+        {
+          "include": "#null"
+        }
+      ]
+    }
+  }
 }
